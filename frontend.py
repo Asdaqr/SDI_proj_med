@@ -30,12 +30,25 @@ class MainProgram(backend.MedicineManager):
 
         # separate root into 3 frames - top, middle, and bottom
 
-        top_frame = tk.Frame(self.root)
-        main_frame = tk.Frame(self.root)
-        bottom_frame = tk.Frame(self.root)
+        self.top_frame = tk.Frame(self.root)
+        self.main_frame = tk.Frame(self.root)
+        self.bottom_frame = tk.Frame(self.root)
 
         for i, day in enumerate(self.dov_abbr):
-            new_day = DayList(day, main_frame)
+            new_day = DayList(day, self.main_frame)
             self.days.append(new_day)
             # grid and stylization code go here I'll do it later
 
+    def remove_from_list(self, name, med_id):
+        self.remove_med(name, med_id)
+        pass
+
+    def add_to_list(self, name, identifier, category, dosage, delta, duration, schedule):
+        self.add_med(name, identifier, category, dosage, delta, duration, schedule)
+        pass
+
+    def change_screen(self):
+        pass
+
+    def notify(self):
+        pass
