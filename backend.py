@@ -21,7 +21,7 @@ class Medicine:
             raise Exception("No schedule or delta has been given")
 
 
-class Medicine_Manager:
+class MedicineManager:
     """Controls what medicines are available"""
 
     def __init__(self):
