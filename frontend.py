@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 import backend
 import datetime as dt
 import helper
@@ -6,13 +7,13 @@ import pickle
 
 
 class DayList:
-    def __init__(self, dayofw, frame):
-        self.day = dayofw
-        self.checklist = tk.Listbox(frame)  # add stylization alter
-        self.date = None
+    def __init__(self, frame, columns, names):
+        self.checklist = ttk.Treeview(frame, columns=columns, show='headings')  # add stylization alter
+        self.date = tk.StringVar()
 
-    def check_off_item(self):
-        self.checklist.delete(tk.ANCHOR)
+        # loops over both the days and abbreviation, we work with days and display abbreviation
+        for day, abbrv in zip(columns, names):
+            self.checklist.heading(day, text=abbrv)
 
 
 class MainProgram(backend.MedicineManager):
@@ -30,14 +31,11 @@ class MainProgram(backend.MedicineManager):
 
         # separate root into 3 frames - top, middle, and bottom
 
-        self.top_frame = tk.Frame(self.root)
-        self.main_frame = tk.Frame(self.root)
-        self.bottom_frame = tk.Frame(self.root)
+        self.top_frame = ttk.Frame(self.root)
+        self.main_frame = ttk.Frame(self.root)
+        self.bottom_frame = ttk.Frame(self.root)
 
-        for i, day in enumerate(self.dov_abbr):
-            new_day = DayList(day, self.main_frame)
-            self.days.append(new_day)
-            # grid and stylization code go here I'll do it later
+        self.window = DayList(self.main_frame, self.dov_abbr, names=self.dov_abbr)
 
     def remove_from_list(self, name, med_id):
         self.remove_med(name, med_id)
